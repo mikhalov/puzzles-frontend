@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import PuzzleBoard from './components/PuzzleBoard';
+import PuzzleControls from './components/PuzzleControls';
+import { getPuzzles } from './services/puzzleService';
 
 function App() {
+  const [pieces, setPieces] = useState([]);
+  const [rows, setRows] = useState('');
+  const [cols, setCols] = useState('');
+
+  const fetchPuzzles = async () => {
+    try {
+      const puzzlesJson = await getPuzzles(rows, cols);
+      const puzzles = Object.values(puzzlesJson);
+      
+      setPieces(puzzles);
+  } catch (error) {
+      console.error("Error fetching puzzles:", error);
+  }
+};
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PuzzleControls
+        rows={rows}
+        cols={cols}
+        setRows={setRows}
+        setCols={setCols}
+        fetchPuzzles={fetchPuzzles}
+      />
+
+        <PuzzleBoard pieces={pieces} rows={rows} cols={cols} />
     </div>
   );
 }
