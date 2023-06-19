@@ -1,7 +1,16 @@
 .puzzle-piece {
     width: 100%;
     height: 100%;
-    background-size: cover;
     cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.puzzle-piece img {
+    width: inherit;
+    height: auto;
+    object-fit: inherit;
     transition: transform 0.5s ease-in-out;
 }

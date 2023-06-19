@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import PuzzleBoard from './components/PuzzleBoard';
 import PuzzleControls from './components/PuzzleControls';
-import { getPuzzles } from './services/puzzleService';
+import { getPuzzles } from './services/PuzzleService';
 
 function App() {
   const [pieces, setPieces] = useState([]);

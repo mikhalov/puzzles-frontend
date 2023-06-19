@@ -1,6 +1,10 @@
 .puzzle-board {
+    margin: 20px 200px;
     display: grid;
-    grid-gap: 10px;
-    width: 100vw;
-    height: 100vh;
+    grid-gap: 1px;
+    position: absolute; 
+    max-width: 90vw; 
+    max-height: 90vh; 
+    overflow: auto; 
+    align-content: start; 
 }

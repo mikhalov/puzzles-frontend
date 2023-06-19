@@ -9,11 +9,13 @@ const PuzzlePiece = ({ image }) => {
     };
 
     return (
-        <div
-            className="puzzle-piece"
-            style={{ backgroundImage: `url(${image})`, transform: `rotate(${rotation}deg)` }}
-            onClick={handleRotate}
-        ></div>
+        <div className="puzzle-piece" onClick={handleRotate}>
+            <img
+                src={image}
+                alt="puzzle piece"
+                style={{ transform: `rotate(${rotation}deg)` }}
+            />
+        </div>
     );
 };
 
