@@ -14,17 +14,19 @@ function App() {
   const [modalTitle, setModalTitle] = useState("Load Puzzle");
   const [isPuzzleSolved, setIsPuzzleSolved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [fullImageSize, setFullImageSize] = useState(null);
 
   const fetchPuzzles = useCallback(async (inputRows, inputCols) => {
     try {
       setIsLoading(true);
       setRows(inputRows);
       setCols(inputCols);
-      const puzzles = await getPuzzles(inputRows, inputCols);
-      setPieces(puzzles);
+      const puzzleData = await getPuzzles(inputRows, inputCols);
+      setPieces(puzzleData.entries);
+      setFullImageSize(puzzleData.size)
       setIsModalOpen(false); 
     } catch (error) {
-      console.error("Error fetching puzzles:", error);
+      console.error("Error fetching puzzleData:", error);
     } finally {
       setIsLoading(false); 
     }
@@ -54,7 +56,7 @@ function App() {
       const isSolved = await updatePuzzle(dataToSend);
       if (isSolved) {
         setIsPuzzleSolved(true);
-        setModalTitle("Congratulations! Puzzle Solved!");
+        setModalTitle("Puzzle Solved!");
         setIsModalOpen(true);
       }
     } catch (error) {
@@ -65,7 +67,7 @@ function App() {
   return (
     <div className="App">
       {isLoading ? (
-        <Spinner message="Loading puzzles..." /> 
+        <Spinner message="Loading puzzle..." /> 
       ) : (
         <>
           <PuzzleBoard
