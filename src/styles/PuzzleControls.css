@@ -1,0 +1,32 @@
+.input-container {
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    margin-right: 20px;
+}
+
+input[type="number"] {
+    user-select: none;
+    width: 30px;
+    border: 0px;
+    text-align: center;
+    margin-left: 5px;
+}
+input:hover {
+    border: 0px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}

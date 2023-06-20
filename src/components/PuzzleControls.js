@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import NumberInput from "./NumberInput";
+import '../styles/PuzzleControls.css';
 
-const PuzzleControls = ({ rows, cols, setRows, setCols, fetchPuzzles }) => {
-    const [inputRows, setInputRows] = useState(rows);
-    const [inputCols, setInputCols] = useState(cols);
+const PuzzleControls = ({ fetchPuzzles }) => {
+    const [inputRows, setInputRows] = useState(4);
+    const [inputCols, setInputCols] = useState(4);
 
     const handleButtonClick = () => {
-        setRows(inputRows);
-        setCols(inputCols);
-        fetchPuzzles();
+        fetchPuzzles(inputRows, inputCols);
     };
 
     return (
         <div>
-            <input
-                type="number"
-                value={inputRows}
-                onChange={(e) => setInputRows(e.target.value)}
-                placeholder="Number of rows"
-            />
-            <input
-                type="number"
-                value={inputCols}
-                onChange={(e) => setInputCols(e.target.value)}
-                placeholder="Number of columns"
-            />
-            <button onClick={handleButtonClick}>Load Puzzles</button>
+            <div className="input-container">
+                <NumberInput
+                    label="Rows"
+                    value={inputRows}
+                    onChange={(e) => {
+                        const value = parseInt(e.target.value, 10);
+                        if (value >= 4 && value <= 10) {
+                            setInputRows(value);
+                        }
+                    }}
+                />
+                <NumberInput
+                    label="Cols"
+                    value={inputCols}
+                    onChange={(e) => {
+                        const value = parseInt(e.target.value, 10);
+                        if (value >= 4 && value <= 10) {
+                            setInputCols(value);
+                        }
+                    }}
+                />
+            </div>
+            <div>
+                <button onClick={handleButtonClick}>Load Puzzles</button>
+            </div>
         </div>
     );
 };
