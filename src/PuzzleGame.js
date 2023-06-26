@@ -10,15 +10,11 @@ import DraggableButton from './components/DraggableButton';
 function PuzzleGame() {
   const {
     pieces,
-    rows,
-    cols,
     isModalOpen,
     modalTitle,
     isLoading,
     fullImageSize,
     isPuzzleSolved,
-    setRows,
-    setCols,
     handleAssemblePuzzle,
     fetchPuzzles,
     handleSwap,
@@ -35,18 +31,16 @@ function PuzzleGame() {
           <DraggableButton onClick={handleAssemblePuzzle} />
           <PuzzleBoard
             pieces={pieces}
-            rows={rows}
-            cols={cols}
+            rows={4}
+            cols={4}
             onSwap={handleSwap}
             fullImageSize={fullImageSize}
             isPuzzleSolved={isPuzzleSolved}
           />
-          <Modal isOpen={isModalOpen} title={modalTitle}>
+          <Modal
+            isOpen={isModalOpen}
+            title={modalTitle}>
             <PuzzleControls
-              rows={rows}
-              cols={cols}
-              setRows={setRows}
-              setCols={setCols}
               fetchPuzzles={fetchPuzzles}
             />
           </Modal>

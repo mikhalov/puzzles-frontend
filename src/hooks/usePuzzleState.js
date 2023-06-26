@@ -3,8 +3,6 @@ import { getPuzzles, checkComplete, assemblePuzzle } from '../services/PuzzleSer
 
 export const usePuzzleState = () => {
   const [pieces, setPieces] = useState([]);
-  const [rows, setRows] = useState('');
-  const [cols, setCols] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [modalTitle, setModalTitle] = useState("Load Puzzle");
   const [isLoading, setIsLoading] = useState(false);
@@ -46,13 +44,11 @@ export const usePuzzleState = () => {
     }
   };
 
-  const fetchPuzzles = useCallback(async (inputRows, inputCols) => {
+  const fetchPuzzles = useCallback(async (imageId) => {
     try {
       setIsLoading(true);
-      setRows(inputRows);
-      setCols(inputCols);
       setIsPuzzleSolved(false);
-      const puzzleData = await getPuzzles(inputRows, inputCols);
+      const puzzleData = await getPuzzles(imageId);
       setPieces(puzzleData.entries);
       setFullImageSize(puzzleData.size);
       setIsModalOpen(false);
@@ -81,15 +77,11 @@ export const usePuzzleState = () => {
 
   return {
     pieces,
-    rows,
-    cols,
     isModalOpen,
     modalTitle,
     isLoading,
     fullImageSize,
     isPuzzleSolved,
-    setRows,
-    setCols,
     handleAssemblePuzzle,
     fetchPuzzles,
     handleSwap,

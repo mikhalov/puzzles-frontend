@@ -21,9 +21,9 @@ export const assemblePuzzle = async (puzzleEntries) => {
   }
 };
 
-export const getPuzzles = async (rows, cols) => {
+export const getPuzzles = async (imageId) => {
   try {
-    const response = await fetch(`/api/puzzles?rows=${rows}&cols=${cols}`);
+    const response = await fetch(`/api/puzzles?imageId=${imageId}`);
     const data = await response.json();
     return data;
   } catch (error) {
