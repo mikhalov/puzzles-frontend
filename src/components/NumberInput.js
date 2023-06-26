@@ -1,16 +1,13 @@
 import React from "react";
 
-const NumberInput = ({ label, value, onChange }) => {
+const NumberInput = ({ label }) => {
     return (
         <label>
             {label}:
             <input
                 type="number"
-                value={value}
-                onChange={onChange}
-                min={4}
-                max={10}
-                step={1}
+                value={4}
+                readOnly
             />
         </label>
     );

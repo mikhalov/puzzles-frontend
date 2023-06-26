@@ -16,26 +16,14 @@ const PuzzleControls = ({ fetchPuzzles }) => {
                 <NumberInput
                     label="Rows"
                     value={inputRows}
-                    onChange={(e) => {
-                        const value = parseInt(e.target.value, 10);
-                        if (value >= 4 && value <= 10) {
-                            setInputRows(value);
-                        }
-                    }}
                 />
                 <NumberInput
                     label="Cols"
                     value={inputCols}
-                    onChange={(e) => {
-                        const value = parseInt(e.target.value, 10);
-                        if (value >= 4 && value <= 10) {
-                            setInputCols(value);
-                        }
-                    }}
                 />
             </div>
             <div>
-                <button onClick={handleButtonClick}>Load Puzzles</button>
+                <button className="puzzle-control-button" onClick={handleButtonClick}>Load Puzzles</button>
             </div>
         </div>
     );

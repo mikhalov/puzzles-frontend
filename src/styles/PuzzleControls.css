@@ -8,18 +8,26 @@ label {
 }
 
 input[type="number"] {
+    cursor: pointer;
     user-select: none;
     width: 30px;
     border: 0px;
     text-align: center;
     margin-left: 5px;
-}
-input:hover {
-    border: 0px;
+    caret-color: transparent;  
 }
 
-button {
+input[type="number"]::selection {
+    background-color: transparent;
+}
+
+input[type="number"]:focus {
+    outline: none;
+}
+
+.puzzle-control-button {
     padding: 5px 10px;
+    border-radius: 3px;
     background-color: #4CAF50;
     border: none;
     color: white;

@@ -1,39 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PuzzlePiece from "./PuzzlePiece";
 import "../styles/PuzzleBoard.css";
 
-const PuzzleBoard = ({ pieces, rows, cols, onSwap, disabled }) => {
+const PuzzleBoard = ({ pieces, rows, cols, onSwap, fullImageSize, isPuzzleSolved }) => {
     const puzzleElements = [];
     const [selectedIndices, setSelectedIndices] = useState([]);
+    const [gridStyle, setGridStyle] = useState(null);
 
-    const gridStyle = {
-        gridTemplateColumns: `repeat(${cols}, 1fr)`,
-        gridTemplateRows: `repeat(${rows}, 1fr)`
+    const calculateGridStyle = () => {
+        if (fullImageSize) {
+            const imageWidth = fullImageSize.width;
+            const imageHeight = fullImageSize.height;
+            const maxWidth = window.innerWidth;
+            const maxHeight = window.innerHeight;
+            const aspectRatio = imageWidth / imageHeight;
+
+            let boardWidth, boardHeight;
+
+            if (maxWidth / aspectRatio <= maxHeight) {
+                boardWidth = maxWidth;
+                boardHeight = maxWidth / aspectRatio;
+            } else {
+                boardWidth = maxHeight * aspectRatio;
+                boardHeight = maxHeight;
+            }
+
+            const cellWidth = boardWidth / cols;
+            const cellHeight = boardHeight / rows;
+
+            const newGridStyle = {
+                gridTemplateColumns: `repeat(${cols}, ${cellWidth}px)`,
+                gridTemplateRows: `repeat(${rows}, ${cellHeight}px)`,
+                gridGap: '1px',
+                width: `${boardWidth}px`,
+                height: `${boardHeight}px`
+            };
+
+            setGridStyle(newGridStyle);
+        }
     };
 
-    const handlePieceClick = (index) => {
-        // Check if interaction is disabled
-        if (disabled) {
-            return;
-        }
+    useEffect(() => {
+        calculateGridStyle();
+        window.addEventListener('resize', calculateGridStyle);
+        return () => {
+            window.removeEventListener('resize', calculateGridStyle);
+        };
+    }, [fullImageSize, cols, rows]);
 
+
+    const handlePieceClick = (index) => {
         setSelectedIndices(prevSelected => {
             const newSelected = [...prevSelected];
-            
+        
             if (newSelected.includes(index)) {
-                // This piece was already selected, we will unselect it
                 const indexPosition = newSelected.indexOf(index);
                 newSelected.splice(indexPosition, 1);
             } else {
                 newSelected.push(index);
             }
-    
+        
             if (newSelected.length === 2) {
-                // Two pieces are selected, let's swap them
                 onSwap(newSelected[0], newSelected[1]);
-                return []; // Clear the selected indices
+                return [];
             } else {
-                return newSelected; // Keep the current selection
+                return newSelected;
             }
         });
     };
@@ -51,13 +82,18 @@ const PuzzleBoard = ({ pieces, rows, cols, onSwap, disabled }) => {
                     image={base64 ? `data:image/png;base64,${base64}` : null}
                     onClick={() => handlePieceClick(index)}
                     isSelected={isSelected}
-                    disabled={disabled}
                 />
             );
         }
     }
 
-    return <div className="puzzle-board" style={gridStyle}>{puzzleElements}</div>;
+    const boardClass = isPuzzleSolved ? "puzzle-board solved" : "puzzle-board";
+
+    return (
+        <div className="puzzle-board-container">
+            <div className={boardClass} style={gridStyle}>{puzzleElements}</div>
+        </div>
+    );
 };
 
 export default PuzzleBoard;

@@ -1,11 +1,35 @@
+.puzzle-board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .puzzle-board {
     user-select: none;
-    margin: 20px 200px;
+    margin: auto;
     display: grid;
-    grid-gap: 1px;
-    position: absolute; 
-    max-width: 90vw; 
-    max-height: 90vh; 
-    overflow: hidden; 
-    align-content: start; 
+    position: absolute;
+    overflow: hidden;
+    align-content: start;
 }
+
+.solved {
+    grid-gap: 0 !important;
+    animation: liftAndGrow 2s;
+}
+
+@keyframes liftAndGrow {
+    0% {
+      transform: scale(1);
+      box-shadow: none;
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: none;
+    }
+  }
