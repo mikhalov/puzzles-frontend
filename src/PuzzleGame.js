@@ -24,7 +24,7 @@ function PuzzleGame() {
     <div className="PuzzleGame
   ">
       {isLoading ? (
-        <Spinner message="Loading puzzle..." />
+        <Spinner message="Loading puzzle..." style={{height: '100vh'}} />
       ) : (
         <>
           <DraggableButton onClick={handleAssemblePuzzle} />

@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
     text-align: center;
 }
 
@@ -17,7 +16,7 @@
 
 .spinner-container h1 {
     margin-left: 40px;
-  }
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

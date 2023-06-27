@@ -1,11 +1,11 @@
-export const assemblePuzzle = async (puzzleEntries) => {
+export const assemblePuzzle = async (sessionId, puzzleEntries) => {
   try {
     const response = await fetch('/api/assembler', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(puzzleEntries),
+      body: JSON.stringify({ sessionId, entries: puzzleEntries }),
     });
 
     if (!response.ok) {
@@ -21,24 +21,14 @@ export const assemblePuzzle = async (puzzleEntries) => {
   }
 };
 
-export const getPuzzles = async (imageId) => {
-  try {
-    const response = await fetch(`/api/puzzles?imageId=${imageId}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching puzzles:', error);
-  }
-};
-
-export const checkComplete = async (puzzleEnries) => {
+export const checkComplete = async (sessionId, puzzleEntries) => {
   try {
     const response = await fetch('/api/puzzles/check-complete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(puzzleEnries),
+      body: JSON.stringify({ sessionId, entries: puzzleEntries }),
     });
 
     if (!response.ok) {
@@ -47,7 +37,18 @@ export const checkComplete = async (puzzleEnries) => {
 
     return await response.json();
   } catch (error) {
-    console.error('Error updating puzzle:', error);
+    console.error('Error checking puzzle completion:', error);
     throw error;
+  }
+};
+
+
+export const getPuzzles = async (imageId) => {
+  try {
+    const response = await fetch(`/api/puzzles?imageId=${imageId}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching puzzles:', error);
   }
 };

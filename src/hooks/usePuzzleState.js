@@ -8,10 +8,11 @@ export const usePuzzleState = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [fullImageSize, setFullImageSize] = useState(null);
   const [isPuzzleSolved, setIsPuzzleSolved] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
 
   const checkIfPuzzleSolved = async (newPieces) => {
     try {
-      const isSolved = await checkComplete(newPieces);
+      const isSolved = await checkComplete(sessionId, newPieces);
       if (isSolved) {
         setIsPuzzleSolved(true); 
   
@@ -24,7 +25,7 @@ export const usePuzzleState = () => {
       console.error('Error updating the puzzle on the server:', error);
     }
   };
-
+  
   const handleAssemblePuzzle = async () => {
     try {
       const dataToSend = pieces.map(piece => {
@@ -33,10 +34,10 @@ export const usePuzzleState = () => {
           base64: piece.base64
         };
       });
-
-      const newPieces = await assemblePuzzle(dataToSend);
+  
+      const newPieces = await assemblePuzzle(sessionId, dataToSend);
       setPieces(newPieces);
-
+  
       checkIfPuzzleSolved(newPieces);
       
     } catch (error) {
@@ -51,6 +52,7 @@ export const usePuzzleState = () => {
       const puzzleData = await getPuzzles(imageId);
       setPieces(puzzleData.entries);
       setFullImageSize(puzzleData.size);
+      setSessionId(puzzleData.sessionId);
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error fetching puzzleData:", error);

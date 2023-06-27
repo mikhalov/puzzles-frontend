@@ -1,14 +1,21 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Spinner from './Spinner'; // import Spinner component
 import { useImageState } from '../hooks/useImageState';
 import ImageList from './ImageList';
 import '../styles/PuzzleControls.css';
 
 const PuzzleControls = ({ fetchPuzzles }) => {
+    const [isLoading, setIsLoading] = useState(true); // state to keep track of loading
     const { images, fetchImages, handleAddImage } = useImageState();
     const fileInputRef = useRef(null);
     
     useEffect(() => {
-        fetchImages();
+        // Before fetching images, set loading to true
+        setIsLoading(true);
+        fetchImages().finally(() => {
+            // After fetching images, set loading to false
+            setIsLoading(false);
+        });
     }, [fetchImages]);
 
     const handleFileChange = async (event) => {
@@ -43,16 +50,21 @@ const PuzzleControls = ({ fetchPuzzles }) => {
     };
 
     return (
-        <div>
-            <h3>Available Images:</h3>
-            <ImageList images={images} onImageClick={handleImageClick} />
-            
-            <div>
-                <label>Upload image:</label>
-                <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }} />
-                <button onClick={() => fileInputRef.current.click()}>Choose File</button>
-            </div>
-
+        <div className="puzzle-controls-container">
+            {isLoading ? (
+                <Spinner message="Loading images..." />
+            ) : (
+                <>
+                    <h3>Available Images:</h3>
+                    <ImageList images={images} onImageClick={handleImageClick} />
+                    
+                    <div>
+                        <label>Upload image:</label>
+                        <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }} />
+                        <button onClick={() => fileInputRef.current.click()}>Choose File</button>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
