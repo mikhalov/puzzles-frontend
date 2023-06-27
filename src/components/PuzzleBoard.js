@@ -76,14 +76,16 @@ const PuzzleBoard = ({ pieces, rows, cols, onSwap, fullImageSize, isPuzzleSolved
             const base64 = piece ? piece.base64 : null;
             const key = `${row}-${col}`;
             const isSelected = selectedIndices ? selectedIndices.includes(index) : false;
-            puzzleElements.push(
-                <PuzzlePiece
-                    key={key}
-                    image={base64 ? `data:image/png;base64,${base64}` : null}
-                    onClick={() => handlePieceClick(index)}
-                    isSelected={isSelected}
-                />
-            );
+            if (base64) {
+                puzzleElements.push(
+                    <PuzzlePiece
+                        key={key}
+                        image={`data:image/png;base64,${base64}`}
+                        onClick={() => handlePieceClick(index)}
+                        isSelected={isSelected}
+                    />
+                );
+            }
         }
     }
 

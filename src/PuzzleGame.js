@@ -18,7 +18,6 @@ function PuzzleGame() {
     handleAssemblePuzzle,
     fetchPuzzles,
     handleSwap,
-
   } = usePuzzleState();
 
   return (
