@@ -21,11 +21,20 @@ const PuzzleControls = ({ fetchPuzzles }) => {
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (file) {
+            if (file.size > 4 * 1024 * 1024) {
+                alert('Оберіть зображення меншого розміру');
+                return;
+              }
             const { base64, mimeType } = await convertFileToBase64(file);
             const imageData = {
                 base64,
                 mimeType
             };
+            const jsonString = JSON.stringify(imageData);
+            if (jsonString.length > 5000000) {
+              alert('Оберіть зображення меншого розміру');
+              return;
+            }
             handleAddImage(imageData);
         }
     };
