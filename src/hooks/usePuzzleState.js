@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { getPuzzles, checkComplete, assemblePuzzle } from '../services/PuzzleService';
+import { getPuzzles, checkComplete, assemblePuzzle } from '../services/puzzleService';
 
 export const usePuzzleState = () => {
   const [pieces, setPieces] = useState([]);

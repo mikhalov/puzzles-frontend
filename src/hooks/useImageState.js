@@ -1,6 +1,6 @@
 
 import { useState, useCallback } from 'react';
-import { getAllImages, addImage } from '../services/ImageService';
+import { getAllImages, addImage } from '../services/imageService';
 
 export const useImageState = () => {
   const [images, setImages] = useState([]);
