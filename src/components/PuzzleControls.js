@@ -67,11 +67,11 @@ const PuzzleControls = ({ fetchPuzzles }) => {
                     <h3>Available Images:</h3>
                     <ImageList images={images} onImageClick={handleImageClick} />
                     
-                    <div>
+                    {/* <div>
                         <label>Upload image:</label>
                         <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }} />
                         <button onClick={() => fileInputRef.current.click()}>Choose File</button>
-                    </div>
+                    </div> */}
                 </>
             )}
         </div>

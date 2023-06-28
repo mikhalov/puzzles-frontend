@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "../styles/PuzzlePiece.css";
 
 const PuzzlePiece = ({ image, onClick, isSelected }) => {
-    const [rotation, setRotation] = useState(0);
+    // const [rotation, setRotation] = useState(0);
 
-    const handleRotate = () => {
-        setRotation((prevRotation) => prevRotation + 90);
-    };
+    // const handleRotate = () => {
+    //     setRotation((prevRotation) => prevRotation + 90);
+    // };
 
     return (
         <div
@@ -17,8 +17,8 @@ const PuzzlePiece = ({ image, onClick, isSelected }) => {
                 src={image}
                 alt="puzzle piece"
                 draggable="false"
-                style={{ transform: `rotate(${rotation}deg)` }}
-                onContextMenu={(e) => { e.preventDefault(); handleRotate(); }}
+                // style={{ transform: `rotate(${rotation}deg)` }}
+                onContextMenu={(e) => { e.preventDefault(); /* handleRotate(); */ }}
             />
         </div>
     );
